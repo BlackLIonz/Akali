@@ -11,12 +11,12 @@ static def gitCommand(){
     return [versionMajor,versionMinor,versionPatch]
 }
 
-def computeVersionName() {
+static def computeVersionName() {
     def ver = gitCommand()
     return "${ver[0]}.${ver[1]}.${ver[2]}"
 }
 
-def computeVersionCode(){
+static def computeVersionCode(){
     def ver = gitCommand()
     return 1000*ver[0]+100*ver[1]+10*ver[2]
 }

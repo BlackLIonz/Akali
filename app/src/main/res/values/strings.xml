@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Akali</string>
+    <string name="to_app_settings">App settings</string>
+    <string name="imei_lable">IMEI:</string>
+    <string name="version_lable">Version:</string>
+    <string name="imei_dialog_title">\?</string>
+    <string name="imei_dialog_message">This permission need to display IMEI</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
 </resources>
