@@ -1,0 +1,83 @@
+apply plugin: 'com.android.application'
+
+static def gitCommand(){
+
+    def gitResult = "git describe --tags".execute().text.split("-")
+    def regexResult = gitResult[0].findAll("(\\d+)")
+    def versionMajor = regexResult[0].toInteger()
+    def versionMinor =  regexResult[1].toInteger()
+    def versionPatch = gitResult[1].toInteger()
+
+    return [versionMajor,versionMinor,versionPatch]
+}
+
+def computeVersionName() {
+    def ver = gitCommand()
+    return "${ver[0]}.${ver[1]}.${ver[2]}"
+}
+
+def computeVersionCode(){
+    def ver = gitCommand()
+    return 1000*ver[0]+100*ver[1]+10*ver[2]
+}
+
+def getSigningPasswords()
+{
+    def lines = file("${System.properties['user.home']}${File.separator}.android${File.separator}melamoryReleasePasswords.txt").readLines()
+    return lines
+}
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.enchantme.akali"
+        manifestPlaceholders = [orientation:"portrait"]
+        minSdkVersion 23
+        targetSdkVersion 28
+        versionCode computeVersionCode()
+        versionName computeVersionName()
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        release {
+            storeFile file("${System.properties['user.home']}${File.separator}.android${File.separator}melamoryRelease.jks")
+            storePassword getSigningPasswords()[0]
+            keyAlias "melamoryKey"
+            keyPassword getSigningPasswords()[1]
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            applicationVariants.all { variant ->
+                variant.outputs.all{ output ->
+                    outputFileName = "${applicationId}-${variant.versionName}.apk"
+                }
+            }
+        }
+    }
+
+    flavorDimensions "version"
+    productFlavors {
+        prod {
+            dimension "version"
+
+        }
+        dev {
+            manifestPlaceholders = [orientation:"unspecified"]
+            dimension "version"
+            versionNameSuffix "-dev"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
