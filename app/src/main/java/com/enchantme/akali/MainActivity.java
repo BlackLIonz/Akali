@@ -47,12 +47,12 @@ public class MainActivity extends AppCompatActivity {
 
         settingsButton.setOnClickListener(getPermission);
 
-        getVersionInfo();
-        getIMEI();
+        setVersionTextView();
+        setIMEI();
     }
 
-    private void getVersionInfo() {
-        String versionName ="";
+    private void setVersionTextView() {
+        String versionName;
 
         versionName = BuildConfig.VERSION_NAME;
 
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @SuppressLint("HardwareIds")
-    private void getIMEI() {
+    private void setIMEI() {
         if (ActivityCompat.checkSelfPermission(this, permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
 
