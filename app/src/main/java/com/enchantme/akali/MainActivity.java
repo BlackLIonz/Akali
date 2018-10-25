@@ -1,5 +1,6 @@
 package com.enchantme.akali;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,18 +20,18 @@ import static android.Manifest.*;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView version;
-    TextView IMEI;
-    Button btn;
+    TextView versionTextView;
+    TextView IMEITextView;
+    Button settingsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        version = findViewById(R.id.version_textview);
-        IMEI = findViewById(R.id.imei_textview);
-        btn = findViewById(R.id.get_permission_button);
+        versionTextView = findViewById(R.id.version_textview);
+        IMEITextView = findViewById(R.id.imei_textview);
+        settingsButton = findViewById(R.id.get_permission_button);
 
         View.OnClickListener getPermission = new View.OnClickListener() {
             @Override
@@ -43,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         };
-        btn.setOnClickListener(getPermission);
+
+        settingsButton.setOnClickListener(getPermission);
 
         getVersionInfo();
         getIMEI();
@@ -54,9 +56,10 @@ public class MainActivity extends AppCompatActivity {
 
         versionName = BuildConfig.VERSION_NAME;
 
-        version.setText(versionName);
+        versionTextView.setText(versionName);
     }
 
+    @SuppressLint("HardwareIds")
     private void getIMEI() {
         if (ActivityCompat.checkSelfPermission(this, permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -83,8 +86,10 @@ public class MainActivity extends AppCompatActivity {
         } else {
             String IMEINumber;
             TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+
+            assert telephonyManager != null;
             IMEINumber = telephonyManager.getDeviceId();
-            IMEI.setText(IMEINumber);
+            IMEITextView.setText(IMEINumber);
         }
     }
 
