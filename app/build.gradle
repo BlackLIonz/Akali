@@ -42,7 +42,7 @@ android {
         release {
             storeFile file("${System.properties['user.home']}${File.separator}.android${File.separator}melamoryRelease.jks")
             storePassword getSigningPasswords()[0]
-            keyAlias "melamoryKey"
+            keyAlias "melamory"
             keyPassword getSigningPasswords()[1]
         }
     }

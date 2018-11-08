@@ -1,6 +1,5 @@
 package com.enchantme.akali;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,9 +20,9 @@ import static android.Manifest.*;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView versionTextView;
-    TextView IMEITextView;
-    Button settingsButton;
+    private TextView versionTextView;
+    private TextView IMEITextView;
+    private Button settingsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,24 +48,31 @@ public class MainActivity extends AppCompatActivity {
         settingsButton.setOnClickListener(getPermission);
 
         setVersionTextView();
-        setIMEI();
+        if (savedInstanceState != null) {
+            IMEITextView.setText(savedInstanceState.getCharSequence("IMEI"));
+        } else {
+            setIMEI();
+        }
     }
 
     private void setVersionTextView() {
-        String versionName;
-
-        versionName = BuildConfig.VERSION_NAME;
+        String versionName = BuildConfig.VERSION_NAME;
 
         versionTextView.setText(versionName);
     }
 
-    @SuppressLint("HardwareIds")
-    private void setIMEI() {
-        if (ActivityCompat.checkSelfPermission(this, permission.READ_PHONE_STATE)
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putCharSequence("IMEI", IMEITextView.getText());
+        super.onSaveInstanceState(outState);
+    }
+
+        private void setIMEI() {
+        if (ContextCompat.checkSelfPermission(this, permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
 
             if(ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    permission.READ_PHONE_STATE)){
+                    permission.READ_PHONE_STATE)) {
 
                 AlertDialog.Builder builder=new AlertDialog.Builder(this);
                 builder.setTitle(R.string.imei_dialog_title)
@@ -78,8 +85,7 @@ public class MainActivity extends AppCompatActivity {
                         .setNegativeButton(R.string.cancel,null)
                         .create()
                         .show();
-            }
-            else{
+            } else {
                 requestPermission();
             }
 
@@ -87,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
             String IMEINumber;
             TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
 
-            assert telephonyManager != null;
             IMEINumber = telephonyManager.getDeviceId();
             IMEITextView.setText(IMEINumber);
         }
