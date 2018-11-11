@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
-static def gitCommand(){
+static def gitCommand() {
 
     def gitResult = "git describe --tags".execute().text.split("-")
     def regexResult = gitResult[0].findAll("(\\d+)")
     def versionMajor = regexResult[0].toInteger()
-    def versionMinor =  regexResult[1].toInteger()
+    def versionMinor = regexResult[1].toInteger()
     def versionPatch = gitResult[1].toInteger()
 
-    return [versionMajor,versionMinor,versionPatch]
+    return [versionMajor, versionMinor, versionPatch]
 }
 
 static def computeVersionName() {
@@ -16,13 +16,12 @@ static def computeVersionName() {
     return "${ver[0]}.${ver[1]}.${ver[2]}"
 }
 
-static def computeVersionCode(){
+static def computeVersionCode() {
     def ver = gitCommand()
-    return 1000*ver[0]+100*ver[1]+10*ver[2]
+    return 1000 * ver[0] + 100 * ver[1] + 10 * ver[2]
 }
 
-def getSigningPasswords()
-{
+def getSigningPasswords() {
     def lines = file("${System.properties['user.home']}${File.separator}.android${File.separator}melamoryReleasePasswords.txt").readLines()
     return lines
 }
@@ -31,7 +30,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.enchantme.akali"
-        manifestPlaceholders = [orientation:"portrait"]
+        manifestPlaceholders = [orientation: "portrait"]
         minSdkVersion 23
         targetSdkVersion 28
         versionCode computeVersionCode()
@@ -52,7 +51,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
             applicationVariants.all { variant ->
-                variant.outputs.all{ output ->
+                variant.outputs.all { output ->
                     outputFileName = "${applicationId}-${variant.versionName}.apk"
                 }
             }
@@ -69,7 +68,7 @@ android {
             testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         }
         dev {
-            manifestPlaceholders = [orientation:"unspecified"]
+            manifestPlaceholders = [orientation: "unspecified"]
             dimension "version"
             versionNameSuffix "-dev"
             minSdkVersion 23
@@ -82,6 +81,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
     testImplementation 'junit:junit:4.12'
