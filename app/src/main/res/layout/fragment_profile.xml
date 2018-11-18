@@ -1,14 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
+        android:id="@+id/profile_image_view"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/profile_picture_description"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="profile" />
+        android:layout_height="250dp"
+        android:layout_gravity="top">
+    </ImageView>
 
-</FrameLayout>
+    <TextView
+        android:text="@string/profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintLeft_toLeftOf="@id/profile_image_view"
+        app:layout_constraintRight_toRightOf="@id/profile_image_view"
+        app:layout_constraintBottom_toBottomOf="@id/profile_image_view" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/profile_image_view"
+        app:layout_constraintBottom_toBottomOf="parent">
+            <TextView
+                android:layout_gravity="center"
+                android:layout_marginStart="25dp"
+                android:textSize="20sp"
+                android:drawableStart="@drawable/ic_text_format_black_24dp"
+                android:text="BlackRock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:layout_marginStart="25dp"
+            android:drawableStart="@drawable/ic_phone_black_24dp"
+            android:layout_marginTop="25dp"
+            android:text="+375333934351"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:drawableStart="@drawable/ic_email_black_24dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="25dp"
+            android:text="melamory30@gmail.com"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

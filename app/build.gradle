@@ -83,6 +83,9 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     def nav_version = "1.0.0-alpha07"
 
+    implementation 'com.github.esafirm.android-image-picker:imagepicker:1.13.1'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     implementation "android.arch.navigation:navigation-fragment:$nav_version" // use -ktx for Kotlin
     implementation "android.arch.navigation:navigation-ui:$nav_version" // use -ktx for Kotlin
     implementation 'com.google.android.material:material:1.0.0'
