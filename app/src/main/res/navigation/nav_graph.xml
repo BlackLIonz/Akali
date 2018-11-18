@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/profileFragment">
+
+    <fragment
+        android:id="@+id/questsFragment"
+        android:name="com.enchantme.akali.QuestsFragment"
+        android:label="fragment_quests"
+        tools:layout="@layout/fragment_quests" ><deepLink app:uri="sdapp://com.enchantme.akali/quests" /></fragment>
+    <fragment
+        android:id="@+id/readerFragment"
+        android:name="com.enchantme.akali.ReaderFragment"
+        android:label="fragment_reader"
+        tools:layout="@layout/fragment_reader" ><deepLink app:uri="sdapp://com.enchantme.akali/reader" /></fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.enchantme.akali.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_readerFragment"
+            app:destination="@id/readerFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_questsFragment"
+            app:destination="@id/questsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_aboutActivity"
+            app:destination="@id/aboutActivity" /><deepLink app:uri="sdapp://com.enchantme.akali/profile" />
+    </fragment>
+    <activity
+        android:id="@+id/aboutActivity"
+        android:name="com.enchantme.akali.AboutActivity"
+        android:label="activity_about"
+        tools:layout="@layout/activity_about" />
+</navigation>

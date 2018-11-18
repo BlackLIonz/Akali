@@ -15,6 +15,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -32,7 +34,9 @@ import static android.Manifest.*;
 
 public class MainActivity extends AppCompatActivity implements ProfileFragment.OnFragmentInteractionListener, QuestsFragment.OnFragmentInteractionListener, ReaderFragment.OnFragmentInteractionListener {
 
-    BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView;
+    private NavController navController;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
         Toolbar mainToolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(mainToolbar);
 
+        navController = Navigation.findNavController(this, R.id.main_content);
+
         bottomNavigationView = findViewById(R.id.bottom_main_navigation);
 
         BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -48,13 +54,13 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.profile_menu_item:
-                        loadFragment(ProfileFragment.newInstance("test", "test2"));
+                        navController.navigate(R.id.profileFragment);
                         return true;
                     case R.id.reader_menu_item:
-                        loadFragment(ReaderFragment.newInstance("test", "test2"));
+                        navController.navigate(R.id.readerFragment);
                         return true;
                     case R.id.quests_menu_item:
-                        loadFragment(QuestsFragment.newInstance("test", "test2"));
+                        navController.navigate(R.id.questsFragment);
                         return true;
                 }
                 return false;
@@ -62,13 +68,6 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
         };
 
         bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
-        bottomNavigationView.setSelectedItemId(R.id.profile_menu_item);
-    }
-
-    private void loadFragment(Fragment fragment) {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.main_content, fragment);
-        ft.commit();
     }
 
     @Override
@@ -83,8 +82,7 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
 
         switch(item.getItemId()){
             case R.id.about_menu_item:
-                Intent intent = new Intent(this, AboutActivity.class);
-                startActivity(intent);
+                navController.navigate(R.id.aboutActivity);
                 break;
         }
         return true;

@@ -18,7 +18,10 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <FrameLayout
+    <fragment
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph"
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
