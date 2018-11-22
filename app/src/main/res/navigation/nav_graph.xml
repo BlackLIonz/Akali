@@ -29,10 +29,18 @@
         <action
             android:id="@+id/action_profileFragment_to_aboutActivity"
             app:destination="@id/aboutActivity" /><deepLink app:uri="sdapp://com.enchantme.akali/profile" />
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
     </fragment>
     <activity
         android:id="@+id/aboutActivity"
         android:name="com.enchantme.akali.AboutActivity"
         android:label="activity_about"
         tools:layout="@layout/activity_about" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.enchantme.akali.EditProfileFragment"
+        android:label="edit_profile_fragment"
+        tools:layout="@layout/edit_profile_fragment" />
 </navigation>
