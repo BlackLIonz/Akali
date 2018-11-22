@@ -30,6 +30,7 @@ public class ProfileFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private NavController navController;
+    private EditProfileViewModel profile;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -50,7 +51,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        EditProfileViewModel profile = ViewModelProviders.of(getActivity()).get(EditProfileViewModel.class);
+        profile = ViewModelProviders.of(getActivity()).get(EditProfileViewModel.class);
         ImageView profileImageView = view.findViewById(R.id.profile_image_view);
         Button editButton = view.findViewById(R.id.edit_profile_button);
 
@@ -73,7 +74,12 @@ public class ProfileFragment extends Fragment {
                 navController.navigate(R.id.editProfileFragment);
             }
         });
-        Glide.with(this).load(R.drawable.default_profile_pic).into(profileImageView);
+        if (profile.getImagePath() != null) {
+            Bitmap btmp = BitmapFactory.decodeFile(profile.getImagePath(), null);
+            Glide.with(this).load(btmp).into(profileImageView);
+        } else {
+            Glide.with(this).load(R.drawable.default_profile_pic).into(profileImageView);
+        }
         final ImagePicker imagePicker = ImagePicker.create(this)
                 .single();
         profileImageView.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +106,7 @@ public class ProfileFragment extends Fragment {
     public void onActivityResult(int requestCode, final int resultCode, Intent data) {
         if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
             Image image = ImagePicker.getFirstImageOrNull(data);
+            profile.setImagePath(image.getPath());
             Bitmap btmp = BitmapFactory.decodeFile(image.getPath(), null);
             ImageView view = getView().findViewById(R.id.profile_image_view);
             Glide.with(this).load(btmp).into(view);

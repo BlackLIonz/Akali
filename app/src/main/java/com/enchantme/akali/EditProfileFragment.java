@@ -9,9 +9,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 
+import android.os.Debug;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.enchantme.akali.viewmodel.EditProfileViewModel;
 
@@ -19,6 +24,8 @@ public class EditProfileFragment extends Fragment {
 
     private EditProfileViewModel mViewModel;
     private NavController navController;
+
+    private EditText profileName, nickName, phone, email;
 
     public static EditProfileFragment newInstance() {
         return new EditProfileFragment();
@@ -33,8 +40,82 @@ public class EditProfileFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(EditProfileViewModel.class);
-        // TODO: Use the ViewModel
+        mViewModel = ViewModelProviders.of(getActivity()).get(EditProfileViewModel.class);
+        EditText profileName = getView().findViewById(R.id.profile_name_edit);
+        profileName.setText(mViewModel.getProfileName().getValue());
+        profileName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mViewModel.setProfileName(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        EditText nickName = getView().findViewById(R.id.profile_nickname_edit);
+        nickName.setText(mViewModel.getNickname().getValue());
+        nickName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mViewModel.setNickName(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        EditText phone = getView().findViewById(R.id.profile_phone_edit);
+        phone.setText(mViewModel.getPhoneNumber().getValue());
+        phone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mViewModel.setPhoneNumber(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        EditText email = getView().findViewById(R.id.profile_email_edit);
+        email.setText(mViewModel.getEmail().getValue());
+        email.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mViewModel.setEmail(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
 }

@@ -31,7 +31,7 @@ android {
     defaultConfig {
         applicationId "com.enchantme.akali"
         manifestPlaceholders = [orientation: "portrait"]
-        minSdkVersion 26
+        minSdkVersion 23
         targetSdkVersion 28
         versionCode computeVersionCode()
         versionName computeVersionName()
@@ -62,7 +62,7 @@ android {
     productFlavors {
         prod {
             dimension "version"
-            minSdkVersion 26
+            minSdkVersion 23
             applicationId 'com.enchantme.akali'
             targetSdkVersion 28
             testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
@@ -71,7 +71,7 @@ android {
             manifestPlaceholders = [orientation: "unspecified"]
             dimension "version"
             versionNameSuffix "-dev"
-            minSdkVersion 26
+            minSdkVersion 23
             applicationId 'com.enchantme.akali'
             targetSdkVersion 28
             testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
