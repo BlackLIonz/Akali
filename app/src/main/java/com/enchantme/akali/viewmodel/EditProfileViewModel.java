@@ -7,11 +7,18 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class EditProfileViewModel extends ViewModel implements Serializable {
+
+    //region Variables
+
     private MutableLiveData<String> profileName;
     private MutableLiveData<String> nickName;
     private MutableLiveData<String> phoneNumber;
     private MutableLiveData<String> email;
     private String imagePath;
+
+    //endregion
+
+    //region Public Methods
 
     public String getImagePath() {
         return imagePath;
@@ -80,5 +87,7 @@ public class EditProfileViewModel extends ViewModel implements Serializable {
         }
         this.phoneNumber.setValue(phoneNumber);
     }
+
+    //endregion
 
 }

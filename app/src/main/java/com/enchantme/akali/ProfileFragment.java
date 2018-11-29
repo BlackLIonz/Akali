@@ -4,37 +4,43 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.enchantme.akali.viewmodel.EditProfileViewModel;
 import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.model.Image;
 
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 public class ProfileFragment extends Fragment {
+
+    //region Variables
 
     private OnFragmentInteractionListener mListener;
     private NavController navController;
     private EditProfileViewModel profile;
 
+    //endregion
+
+    //region Constructors
+
     public ProfileFragment() {
-        // Required empty public constructor
     }
+
+    //endregion
+
+    //region Android Lifecycle
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -119,18 +125,16 @@ public class ProfileFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
+    //endregion
+
+
+    //region Interfaces
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    //endregion
 }

@@ -3,11 +3,18 @@ package com.enchantme.akali.dto;
 import java.io.Serializable;
 
 public class ProfileDTO implements Serializable {
+
+    //region Variables
+
     private String profileName;
     private String profileNickName;
     private String profilePhone;
     private String profileEmail;
     private String imagePath;
+
+    //endregion
+
+    //region Constructors
 
     public ProfileDTO() {
 
@@ -19,6 +26,10 @@ public class ProfileDTO implements Serializable {
         this.setProfilePhone(profilePhone);
         this.setProfileEmail(profileEmail);
     }
+
+    //endregion
+
+    //region Public Methods
 
     public String getImagePath() {
         return imagePath;
@@ -59,4 +70,6 @@ public class ProfileDTO implements Serializable {
     public void setProfileEmail(String profileEmail) {
         this.profileEmail = profileEmail;
     }
+
+    //endregion
 }

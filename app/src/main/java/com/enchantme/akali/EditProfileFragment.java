@@ -1,18 +1,8 @@
 package com.enchantme.akali;
 
-import androidx.lifecycle.ViewModelProviders;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-
-import android.os.Debug;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,16 +10,20 @@ import android.widget.EditText;
 
 import com.enchantme.akali.viewmodel.EditProfileViewModel;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+
 public class EditProfileFragment extends Fragment {
 
+    //region Variables
+
     private EditProfileViewModel mViewModel;
-    private NavController navController;
 
-    private EditText profileName, nickName, phone, email;
+    //endregion
 
-    public static EditProfileFragment newInstance() {
-        return new EditProfileFragment();
-    }
+    //region Android Lifecycle
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -117,5 +111,7 @@ public class EditProfileFragment extends Fragment {
             }
         });
     }
+
+    //endregion
 
 }

@@ -1,10 +1,5 @@
 package com.enchantme.akali;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,13 +12,23 @@ import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 public class AboutActivity extends AppCompatActivity {
+
+    //region Variables
 
     private TextView versionTextView;
     private TextView IMEITextView;
     private Button settingsButton;
+
+    //endregion
+
+    //region Android Lifecycle
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,26 +61,30 @@ public class AboutActivity extends AppCompatActivity {
         }
     }
 
-    private void setVersionTextView() {
-        String versionName = BuildConfig.VERSION_NAME;
-
-        versionTextView.setText(versionName);
-    }
-
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putCharSequence("IMEI", IMEITextView.getText());
         super.onSaveInstanceState(outState);
     }
 
+    //endregion
+
+    //region Private Methods
+
+    private void setVersionTextView() {
+        String versionName = BuildConfig.VERSION_NAME;
+
+        versionTextView.setText(versionName);
+    }
+
     private void setIMEI() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            if(ActivityCompat.shouldShowRequestPermissionRationale(this,
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.READ_PHONE_STATE)) {
 
-                AlertDialog.Builder builder=new AlertDialog.Builder(this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.imei_dialog_title)
                         .setMessage(R.string.imei_dialog_message)
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
@@ -83,7 +92,7 @@ public class AboutActivity extends AppCompatActivity {
                                 requestPermission();
                             }
                         })
-                        .setNegativeButton(R.string.cancel,null)
+                        .setNegativeButton(R.string.cancel, null)
                         .create()
                         .show();
             } else {
@@ -92,16 +101,18 @@ public class AboutActivity extends AppCompatActivity {
 
         } else {
             String IMEINumber;
-            TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+            TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 
             IMEINumber = telephonyManager.getDeviceId();
             IMEITextView.setText(IMEINumber);
         }
     }
 
-    private void requestPermission(){
+    private void requestPermission() {
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.READ_PHONE_STATE},
                 Constants.REQUEST_FOR_IMEI);
     }
+
+    //endregion
 }

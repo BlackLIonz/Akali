@@ -22,8 +22,11 @@
         android:layout_height="wrap_content"
         android:text="@string/profile_name"
         android:textSize="30sp"
-        tools:layout_editor_absoluteX="87dp"
-        tools:layout_editor_absoluteY="180dp" />
+        app:layout_constraintBottom_toBottomOf="@id/profile_image_view"
+        app:layout_constraintLeft_toLeftOf="@id/profile_image_view"
+        app:layout_constraintRight_toRightOf="@id/profile_image_view"
+        app:layout_constraintTop_toTopOf="@id/profile_image_view"
+         />
 
     <LinearLayout
         android:layout_width="match_parent"
