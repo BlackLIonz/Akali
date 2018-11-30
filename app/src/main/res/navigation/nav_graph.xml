@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/profileFragment">
+    app:startDestination="@id/authEmailPasswordFragment">
 
     <fragment
         android:id="@+id/questsFragment"
@@ -41,4 +41,14 @@
         android:name="com.enchantme.akali.AboutFragment"
         android:label="fragment_about"
         tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/authEmailPasswordFragment"
+        android:name="com.enchantme.akali.AuthEmailPasswordFragment"
+        android:label="fragment_auth_email_password"
+        tools:layout="@layout/fragment_auth_email_password" />
+    <fragment
+        android:id="@+id/authCreateFragment"
+        android:name="com.enchantme.akali.AuthCreateFragment"
+        android:label="fragment_auth_create"
+        tools:layout="@layout/fragment_auth_create" />
 </navigation>

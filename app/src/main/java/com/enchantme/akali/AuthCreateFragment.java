@@ -1,22 +1,9 @@
 package com.enchantme.akali;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextPaint;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,35 +18,42 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
-public class AuthEmailPasswordFragment extends Fragment {
+
+public class AuthCreateFragment extends Fragment {
 
     //region Variables
 
-    private OnFragmentInteractionListener mListener;
+    private TextView emailTextView, passwordTextView;
+    private MaterialButton createAccountButton;
 
     private FirebaseAuth auth;
 
-    private TextView emailTextView, passwordTextView, createAccountTextView;
-    private MaterialButton signInButton;
-
     private NavController navController;
+
+
+    private OnFragmentInteractionListener mListener;
 
     //endregion
 
     //region Constructors
-
-    public AuthEmailPasswordFragment() {
+    public AuthCreateFragment() {
     }
-
     //endregion
+
 
     //region Android Lifecycle
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_auth_email_password, container, false);
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_auth_create, container, false);
     }
 
     @Override
@@ -67,23 +61,19 @@ public class AuthEmailPasswordFragment extends Fragment {
         super.onCreate(savedInstanceState);
         auth = FirebaseAuth.getInstance();
         navController = Navigation.findNavController(getActivity(), R.id.main_content);
-        if (auth.getCurrentUser() != null) {
-            navController.navigate(R.id.profileFragment);
-        }
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        emailTextView = getView().findViewById(R.id.auth_email);
-        passwordTextView = getView().findViewById(R.id.auth_password);
-        signInButton = getView().findViewById(R.id.auth_sign_in);
-        createAccountTextView = getView().findViewById(R.id.auth_create_account);
-        createSpannableCreateAccountString();
-        signInButton.setOnClickListener(new View.OnClickListener() {
+        emailTextView = getView().findViewById(R.id.create_account_email);
+        passwordTextView = getView().findViewById(R.id.create_account_password);
+        createAccountButton = getView().findViewById(R.id.create_account_button);
+
+        createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signIn(emailTextView.getText().toString(), passwordTextView.getText().toString());
+                createAccount(emailTextView.getText().toString(), passwordTextView.getText().toString());
             }
         });
     }
@@ -109,32 +99,6 @@ public class AuthEmailPasswordFragment extends Fragment {
 
     //region Private Methods
 
-    private void createSpannableCreateAccountString() {
-        SpannableString ss = new SpannableString(getResources().getString(R.string.auth_create_account));
-        ClickableSpan clickableSpan = new ClickableSpan() {
-            @Override
-            public void onClick(@NonNull View widget) {
-                navController.navigate(R.id.authCreateFragment);
-            }
-
-            @Override
-            public void updateDrawState(@NonNull TextPaint ds) {
-                super.updateDrawState(ds);
-                ds.setUnderlineText(true);
-            }
-        };
-
-        int startSpan = getResources().getInteger(R.integer.start_create_account_span);
-        int endSpan = getResources().getInteger(R.integer.end_create_account_span);
-
-        ss.setSpan(clickableSpan,startSpan, endSpan, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        createAccountTextView.setText(ss);
-        createAccountTextView.setMovementMethod(LinkMovementMethod.getInstance());
-        createAccountTextView.setHighlightColor(Color.TRANSPARENT);
-
-    }
-
     private boolean validateForm() {
         boolean valid = true;
 
@@ -157,46 +121,47 @@ public class AuthEmailPasswordFragment extends Fragment {
         return valid;
     }
 
-    private void signIn(String email, String password) {
-        Log.d("Akali", "signIn:" + email);
+
+    private void createAccount(String email, String password) {
+        Log.d("Akali", "createAccount:" + email);
         if (!validateForm()) {
             return;
         }
 
-        //showProgressDialog();
+   //     showProgressDialog();
 
-        // [START sign_in_with_email]
-        auth.signInWithEmailAndPassword(email, password)
+        auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d("Akali", "signInWithEmail:success");
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("Akali", "createUserWithEmail:success");
                             FirebaseUser user = auth.getCurrentUser();
-                            mListener.showBottomNavigationBar();
-                            navController.navigate(R.id.profileFragment);
+                            navController.navigate(R.id.authEmailPasswordFragment);
+                          //  updateUI(user);
                         } else {
-                            Log.w("Akali", "signInWithEmail:failure", task.getException());
+                            Log.w("Akali", "createUserWithEmail:failure", task.getException());
                             Toast.makeText(getActivity(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                            //updateUI(null);
                         }
 
-                        if (!task.isSuccessful()) {
-                        //    mStatusTextView.setText(R.string.auth_failed);
-                        }
-               //         hideProgressDialog();
+                        // [START_EXCLUDE]
+                       // hideProgressDialog();
+                        // [END_EXCLUDE]
                     }
                 });
+        // [END create_user_with_email]
     }
 
-    //endregion
 
+    //endregion
 
     //region Interfaces
 
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
-        void showBottomNavigationBar();
     }
 
     //endregion

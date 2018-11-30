@@ -21,4 +21,10 @@
     <string name="profile_nickname_hint">Nickname</string>
     <string name="profile_phone_hint">+00000000</string>
     <string name="profile_email_hint">example@gmail.com</string>
+    <string name="auth_email_hint">example@gmail.com</string>
+    <string name="auth_sign_in">Sign In</string>
+    <string name="auth_create_account">Don\'t have account ? Create here.</string>
+    <string name="create_account_button">Create</string>
+    <string name="logout_menu_item_title">Logout</string>
+    <string name="save_profile_button">Save</string>
 </resources>

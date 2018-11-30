@@ -8,18 +8,6 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="aboutActivity">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="265" />
-                            <option name="y" value="12" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="aboutFragment">
                     <value>
                       <LayoutPositions>
@@ -27,6 +15,30 @@
                           <Point>
                             <option name="x" value="541" />
                             <option name="y" value="35" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="authCreateFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="783" />
+                            <option name="y" value="295" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="authEmailPasswordFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="309" />
+                            <option name="y" value="-160" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -55,11 +67,6 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_profileFragment_to_aboutActivity">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                             <entry key="action_profileFragment_to_editProfileFragment">
                               <value>
                                 <LayoutPositions />

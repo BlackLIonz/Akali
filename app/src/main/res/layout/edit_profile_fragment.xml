@@ -7,18 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".EditProfileFragment">
 
-        <EditText
-            tools:ignore="Autofill"
-            android:hint="@string/profile_name_hint"
-            android:inputType="text"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:id="@+id/profile_name_edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             tools:ignore="Autofill"
             android:hint="@string/profile_nickname_hint"
             android:inputType="text"
@@ -28,23 +18,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             tools:ignore="Autofill"
             android:hint="@string/profile_phone_hint"
             android:inputType="phone"
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
             android:id="@+id/profile_phone_edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <EditText
-            tools:ignore="Autofill"
-            android:hint="@string/profile_email_hint"
-            android:inputType="textEmailAddress"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:id="@+id/profile_email_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -57,6 +37,13 @@
             android:layout_width="150dp"
             android:layout_gravity="center"
             android:layout_height="150dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/save_profile_button"
+        android:text="@string/save_profile_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
 
 
 </LinearLayout>

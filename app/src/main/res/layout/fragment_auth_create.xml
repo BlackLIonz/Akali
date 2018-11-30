@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".AuthEmailPasswordFragment">
+    tools:context=".AuthCreateFragment">
 
     <LinearLayout
         android:layout_width="250dp"
@@ -16,14 +16,14 @@
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/auth_email"
+            android:id="@+id/create_account_email"
             android:inputType="textEmailAddress"
             android:hint="@string/auth_email_hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/auth_password"
+            android:id="@+id/create_account_password"
             android:layout_marginTop="20dp"
             android:inputType="textPassword"
             android:layout_width="match_parent"
@@ -31,23 +31,13 @@
 
         <com.google.android.material.button.MaterialButton
             android:layout_marginTop="50dp"
-            android:id="@+id/auth_sign_in"
-            android:text="@string/auth_sign_in"
+            android:id="@+id/create_account_button"
+            android:text="@string/create_account_button"
             android:gravity="center"
             android:layout_gravity="center_horizontal"
             android:layout_width="100dp"
             android:layout_height="wrap_content" />
 
-        <TextView
-            android:focusable="true"
-            android:clickable="true"
-            android:id="@+id/auth_create_account"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center"
-            android:text="@string/auth_create_account"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

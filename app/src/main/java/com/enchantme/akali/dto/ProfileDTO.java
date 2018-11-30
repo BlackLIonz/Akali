@@ -6,7 +6,6 @@ public class ProfileDTO implements Serializable {
 
     //region Variables
 
-    private String profileName;
     private String profileNickName;
     private String profilePhone;
     private String profileEmail;
@@ -20,8 +19,7 @@ public class ProfileDTO implements Serializable {
 
     }
 
-    public ProfileDTO(String profileName, String profileNickName, String profilePhone, String profileEmail) {
-        this.setProfileName(profileName);
+    public ProfileDTO(String profileNickName, String profilePhone, String profileEmail) {
         this.setProfileNickName(profileNickName);
         this.setProfilePhone(profilePhone);
         this.setProfileEmail(profileEmail);
@@ -37,14 +35,6 @@ public class ProfileDTO implements Serializable {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
-    }
-
-    public String getProfileName() {
-        return profileName;
-    }
-
-    public void setProfileName(String profileName) {
-        this.profileName = profileName;
     }
 
     public String getProfileNickName() {

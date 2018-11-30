@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="start_create_account_span">28</integer>
+    <integer name="end_create_account_span">33</integer>
+</resources>

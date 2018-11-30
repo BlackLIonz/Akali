@@ -1,27 +1,18 @@
 package com.enchantme.akali;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
-import com.enchantme.akali.dto.ProfileDTO;
-import com.enchantme.akali.viewmodel.EditProfileViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -29,12 +20,19 @@ public class MainActivity extends AppCompatActivity implements
         ProfileFragment.OnFragmentInteractionListener,
         QuestsFragment.OnFragmentInteractionListener,
         ReaderFragment.OnFragmentInteractionListener,
-        AboutFragment.OnFragmentInteractionListener{
+        AboutFragment.OnFragmentInteractionListener,
+        AuthEmailPasswordFragment.OnFragmentInteractionListener,
+        AuthCreateFragment.OnFragmentInteractionListener{
 
     //region Variables
 
+    private MenuItem logoutMenuItem;
+
     private NavController navController;
-    private EditProfileViewModel mViewModel;
+
+    private FirebaseAuth auth;
+
+    private BottomNavigationView bottomNavigationView;
 
     //endregion
 
@@ -44,15 +42,17 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        auth = FirebaseAuth.getInstance();
         Toolbar mainToolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(mainToolbar);
-        mViewModel = ViewModelProviders.of(this).get(EditProfileViewModel.class);
-
-        loadProfile();
 
         navController = Navigation.findNavController(this, R.id.main_content);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_main_navigation);
+        bottomNavigationView = findViewById(R.id.bottom_main_navigation);
+
+        if (auth.getCurrentUser() == null) {
+            bottomNavigationView.setVisibility(View.INVISIBLE);
+        }
 
         BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -78,13 +78,16 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onStop() {
         super.onStop();
-        saveProfile();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.appbar_menu, menu);
+        logoutMenuItem = menu.findItem(R.id.logout_menu_item);
+        if (auth.getCurrentUser() == null) {
+            logoutMenuItem.setVisible(false);
+        }
         return true;
     }
 
@@ -96,6 +99,11 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.about_menu_item:
                 navController.navigate(R.id.aboutFragment);
                 break;
+            case R.id.logout_menu_item:
+                auth.signOut();
+                hideAuth();
+                navController.navigate(R.id.authEmailPasswordFragment);
+                break;
         }
         return true;
     }
@@ -105,47 +113,17 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
-    //endregion
-
-    //region Private Methods
-
-    private void saveProfile() {
-        try {
-            FileOutputStream fos = this.openFileOutput("profile", Context.MODE_PRIVATE);
-            ObjectOutputStream os = new ObjectOutputStream(fos);
-            ProfileDTO profileDTO = new ProfileDTO(mViewModel.getProfileName().getValue(), mViewModel.getNickname().getValue(), mViewModel.getPhoneNumber().getValue(), mViewModel.getEmail().getValue());
-            if (mViewModel.getImagePath() != null) {
-                profileDTO.setImagePath(mViewModel.getImagePath());
-            }
-            os.writeObject(profileDTO);
-            os.close();
-            fos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.d("Akali", "onDestroy: error " + e.getMessage());
-        }
-        Log.d("Akali", "onDestroy: save complete");
-        Log.d("Akali", "onStop: " + mViewModel.getNickname().getValue());
+    private void hideAuth() {
+        bottomNavigationView.setVisibility(View.INVISIBLE);
+        logoutMenuItem.setVisible(false);
     }
 
-    private void loadProfile() {
-        try {
-            FileInputStream fis = this.openFileInput("profile");
-            ObjectInputStream is = new ObjectInputStream(fis);
-            ProfileDTO profileDTO = (ProfileDTO) is.readObject();
-            mViewModel.setProfileName(profileDTO.getProfileName());
-            mViewModel.setNickName(profileDTO.getProfileNickName());
-            mViewModel.setEmail(profileDTO.getProfileEmail());
-            mViewModel.setPhoneNumber(profileDTO.getProfilePhone());
-            if (profileDTO.getImagePath() != null) {
-                mViewModel.setImagePath(profileDTO.getImagePath());
-            }
-            is.close();
-            fis.close();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+    @Override
+    public void showBottomNavigationBar() {
+        bottomNavigationView.setVisibility(View.VISIBLE);
+        logoutMenuItem.setVisible(true);
     }
 
     //endregion
+
 }
