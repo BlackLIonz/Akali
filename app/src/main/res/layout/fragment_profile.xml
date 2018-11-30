@@ -41,6 +41,7 @@
                 android:layout_marginStart="25dp"
                 android:textSize="20sp"
                 android:drawableStart="@drawable/ic_text_format_black_24dp"
+                android:drawablePadding="7dp"
                 android:text="BlackRock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -49,6 +50,7 @@
             android:textSize="20sp"
             android:layout_gravity="center"
             android:layout_marginStart="25dp"
+            android:drawablePadding="7dp"
             android:drawableStart="@drawable/ic_phone_black_24dp"
             android:layout_marginTop="25dp"
             android:text="+375333934351"
@@ -57,22 +59,27 @@
         <TextView
             android:id="@+id/profile_email"
             android:textSize="20sp"
+            android:drawablePadding="7dp"
             android:layout_gravity="center"
             android:drawableStart="@drawable/ic_email_black_24dp"
             android:layout_marginTop="25dp"
             android:layout_marginStart="25dp"
-            android:text="melamory30@gmail.com"
+            android:text="melamory39@gmail.com"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <Button
-            android:id="@+id/edit_profile_button"
-            android:layout_marginTop="35dp"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="@string/edit_profile_button"/>
 
     </LinearLayout>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/edit_profile_button"
+        android:src="@drawable/ic_edit_white_24dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_margin="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

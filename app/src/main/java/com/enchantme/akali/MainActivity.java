@@ -28,7 +28,8 @@ import androidx.navigation.Navigation;
 public class MainActivity extends AppCompatActivity implements
         ProfileFragment.OnFragmentInteractionListener,
         QuestsFragment.OnFragmentInteractionListener,
-        ReaderFragment.OnFragmentInteractionListener {
+        ReaderFragment.OnFragmentInteractionListener,
+        AboutFragment.OnFragmentInteractionListener{
 
     //region Variables
 
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements
 
         switch (item.getItemId()) {
             case R.id.about_menu_item:
-                navController.navigate(R.id.aboutActivity);
+                navController.navigate(R.id.aboutFragment);
                 break;
         }
         return true;

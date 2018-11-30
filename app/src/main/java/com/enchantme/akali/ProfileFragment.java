@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.enchantme.akali.viewmodel.EditProfileViewModel;
 import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.model.Image;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -59,7 +60,7 @@ public class ProfileFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_profile, container, false);
         profile = ViewModelProviders.of(getActivity()).get(EditProfileViewModel.class);
         ImageView profileImageView = view.findViewById(R.id.profile_image_view);
-        Button editButton = view.findViewById(R.id.edit_profile_button);
+        FloatingActionButton editButton = view.findViewById(R.id.edit_profile_button);
 
         TextView nameTextView = view.findViewById(R.id.profile_name);
         nameTextView.setText(profile.getProfileName().getValue());
@@ -86,14 +87,6 @@ public class ProfileFragment extends Fragment {
         } else {
             Glide.with(this).load(R.drawable.default_profile_pic).into(profileImageView);
         }
-        final ImagePicker imagePicker = ImagePicker.create(this)
-                .single();
-        profileImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imagePicker.start();
-            }
-        });
         return view;
     }
 
@@ -108,17 +101,6 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, final int resultCode, Intent data) {
-        if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
-            Image image = ImagePicker.getFirstImageOrNull(data);
-            profile.setImagePath(image.getPath());
-            Bitmap btmp = BitmapFactory.decodeFile(image.getPath(), null);
-            ImageView view = getView().findViewById(R.id.profile_image_view);
-            Glide.with(this).load(btmp).into(view);
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
 
     @Override
     public void onDetach() {

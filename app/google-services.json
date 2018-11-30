@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "552371884494",
+    "firebase_url": "https://akali-ed349.firebaseio.com",
+    "project_id": "akali-ed349",
+    "storage_bucket": "akali-ed349.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:552371884494:android:c2abbbeb9c0dd442",
+        "android_client_info": {
+          "package_name": "com.enchantme.akali"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "552371884494-7llnsohu16soqpcvonk0nqkr7u4epk5m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.enchantme.akali",
+            "certificate_hash": "f9705ac07509f1dc21b395a443be85499f4d3f57"
+          }
+        },
+        {
+          "client_id": "552371884494-dge771qb5f6bvc2u704g65ldag10i7fq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2FIdj2C6z5Z6Xs5eNUG4HLXhrErgbCRI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "552371884494-dge771qb5f6bvc2u704g65ldag10i7fq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
