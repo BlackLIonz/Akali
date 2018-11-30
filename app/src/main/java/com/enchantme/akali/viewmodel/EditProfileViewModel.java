@@ -1,14 +1,32 @@
 package com.enchantme.akali.viewmodel;
 
+import java.io.Serializable;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class EditProfileViewModel extends ViewModel {
+public class EditProfileViewModel extends ViewModel implements Serializable {
+
+    //region Variables
+
     private MutableLiveData<String> profileName;
     private MutableLiveData<String> nickName;
     private MutableLiveData<String> phoneNumber;
     private MutableLiveData<String> email;
+    private String imagePath;
+
+    //endregion
+
+    //region Public Methods
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
 
     public LiveData<String> getProfileName() {
         if (profileName == null) {
@@ -43,19 +61,33 @@ public class EditProfileViewModel extends ViewModel {
     }
 
     public void setProfileName(String profileName) {
+        if (this.profileName == null) {
+            this.profileName = new MutableLiveData<>();
+        }
         this.profileName.setValue(profileName);
     }
 
     public void setEmail(String email) {
+        if (this.email == null) {
+            this.email = new MutableLiveData<>();
+        }
         this.email.setValue(email);
     }
 
-    private void setNickName(String nickName) {
+    public void setNickName(String nickName) {
+        if (this.nickName == null) {
+            this.nickName = new MutableLiveData<>();
+        }
         this.nickName.setValue(nickName);
     }
 
-    private void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
+        if (this.phoneNumber == null) {
+            this.phoneNumber = new MutableLiveData<>();
+        }
         this.phoneNumber.setValue(phoneNumber);
     }
+
+    //endregion
 
 }

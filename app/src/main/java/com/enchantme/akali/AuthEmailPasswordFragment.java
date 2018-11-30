@@ -3,13 +3,15 @@ package com.enchantme.akali;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.fragment.app.Fragment;
 
-public class QuestsFragment extends Fragment {
+public class AuthEmailPasswordFragment extends Fragment {
 
     //region Variables
 
@@ -19,7 +21,7 @@ public class QuestsFragment extends Fragment {
 
     //region Constructors
 
-    public QuestsFragment() {
+    public AuthEmailPasswordFragment() {
     }
 
     //endregion
@@ -29,8 +31,7 @@ public class QuestsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_quests, container, false);
+        return inflater.inflate(R.layout.fragment_auth_email_password, container, false);
     }
 
     @Override
@@ -52,10 +53,11 @@ public class QuestsFragment extends Fragment {
 
     //endregion
 
+
+
     //region Interfaces
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 
