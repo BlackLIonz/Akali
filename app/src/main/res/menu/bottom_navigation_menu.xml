@@ -13,4 +13,8 @@
         android:title="@string/quests_menu_item_title"
         android:icon="@drawable/ic_library_books_white_24dp"
         app:showAsAction="ifRoom|withText"/>
+    <item android:id="@+id/rss_menu_item"
+        android:title="@string/rss_menu_item_title"
+        android:icon="@drawable/ic_rss_feed_white_24dp"
+        app:showAsAction="ifRoom|withText"/>
 </menu>

@@ -51,10 +51,6 @@ public class EditProfileFragment extends BaseFirebaseAuthFragment {
 
     //region Variables
 
-    private NavController navController;
-
-    private FirebaseAuth auth;
-
     private MaterialButton saveProfileButton;
 
     private TextInputEditText nickName, phone;

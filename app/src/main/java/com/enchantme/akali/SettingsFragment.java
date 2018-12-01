@@ -27,7 +27,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     //endregion
 
-
     //region Android Lifecycle
 
     @Override

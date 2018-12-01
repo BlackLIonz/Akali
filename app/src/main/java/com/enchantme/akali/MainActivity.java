@@ -23,7 +23,8 @@ public class MainActivity extends AppCompatActivity implements
         AboutFragment.OnFragmentInteractionListener,
         AuthEmailPasswordFragment.OnFragmentInteractionListener,
         AuthCreateFragment.OnFragmentInteractionListener,
-        SettingsFragment.OnFragmentInteractionListener {
+        SettingsFragment.OnFragmentInteractionListener,
+        RssFragment.OnFragmentInteractionListener {
 
     //region Variables
 
@@ -68,6 +69,9 @@ public class MainActivity extends AppCompatActivity implements
                         return true;
                     case R.id.quests_menu_item:
                         navController.navigate(R.id.questsFragment);
+                        return true;
+                    case R.id.rss_menu_item:
+                        navController.navigate(R.id.rssFragment);
                         return true;
                 }
                 return false;
