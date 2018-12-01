@@ -30,7 +30,6 @@
                 android:textSize="20sp"
                 android:drawableStart="@drawable/ic_text_format_black_24dp"
                 android:drawablePadding="7dp"
-                android:text="BlackRock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         <TextView
@@ -41,7 +40,6 @@
             android:drawablePadding="7dp"
             android:drawableStart="@drawable/ic_phone_black_24dp"
             android:layout_marginTop="25dp"
-            android:text="+375333934351"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView
@@ -52,7 +50,6 @@
             android:drawableStart="@drawable/ic_email_black_24dp"
             android:layout_marginTop="25dp"
             android:layout_marginStart="25dp"
-            android:text="melamory39@gmail.com"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

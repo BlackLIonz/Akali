@@ -51,4 +51,9 @@
         android:name="com.enchantme.akali.AuthCreateFragment"
         android:label="fragment_auth_create"
         tools:layout="@layout/fragment_auth_create" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.enchantme.akali.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

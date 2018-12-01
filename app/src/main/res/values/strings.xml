@@ -12,7 +12,6 @@
     <string name="quests_menu_item_title">Quests</string>
     <string name="about_menu_item_title">About</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="profile_picture_description">profile picture</string>
     <string name="profile_name">Ilya Demidovich</string>
@@ -27,4 +26,10 @@
     <string name="create_account_button">Create</string>
     <string name="logout_menu_item_title">Logout</string>
     <string name="save_profile_button">Save</string>
+    <string name="settings_menu_item_title">Settings</string>
+
+    <string name="rss_category_title">RSS</string>
+    <string name="rss_key">rss_link</string>
+    <string name="rss_title">RSS Link</string>
+    <string name="rss_summary">RSS Link</string>
 </resources>

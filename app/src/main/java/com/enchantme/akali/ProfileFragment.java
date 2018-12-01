@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,19 +31,12 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends BaseFirebaseAuthFragment {
 
     //region Variables
 
-    private FirebaseAuth auth;
-
     private OnFragmentInteractionListener mListener;
-    private NavController navController;
 
     private DatabaseReference db;
     private StorageReference st;
@@ -61,7 +55,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        auth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance().getReference();
         st = FirebaseStorage.getInstance().getReference();
     }
@@ -77,9 +70,6 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_profile, container, false);
         FirebaseUser currentUser = auth.getCurrentUser();
-        if (currentUser == null) {
-            navController.navigate(R.id.authEmailPasswordFragment);
-        }
 
         db = db.child(DBConstants.USERS_ROOT).child(currentUser.getUid());
 
@@ -133,7 +123,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        navController = Navigation.findNavController(getActivity(), R.id.main_content);
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,7 +134,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onSuccess(Uri uri) {
                 GlideApp.with(getView()).load(st).into(profileImageView);
-           //     GlideApp.with(getView()).load(st).into(profileImageView);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

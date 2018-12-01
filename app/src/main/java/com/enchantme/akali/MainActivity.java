@@ -22,11 +22,13 @@ public class MainActivity extends AppCompatActivity implements
         ReaderFragment.OnFragmentInteractionListener,
         AboutFragment.OnFragmentInteractionListener,
         AuthEmailPasswordFragment.OnFragmentInteractionListener,
-        AuthCreateFragment.OnFragmentInteractionListener{
+        AuthCreateFragment.OnFragmentInteractionListener,
+        SettingsFragment.OnFragmentInteractionListener {
 
     //region Variables
 
     private MenuItem logoutMenuItem;
+    private MenuItem settingsMenuItem;
 
     private NavController navController;
 
@@ -85,8 +87,10 @@ public class MainActivity extends AppCompatActivity implements
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.appbar_menu, menu);
         logoutMenuItem = menu.findItem(R.id.logout_menu_item);
+        settingsMenuItem = menu.findItem(R.id.settings_menu_item);
         if (auth.getCurrentUser() == null) {
             logoutMenuItem.setVisible(false);
+            settingsMenuItem.setVisible(false);
         }
         return true;
     }
@@ -104,6 +108,9 @@ public class MainActivity extends AppCompatActivity implements
                 hideAuth();
                 navController.navigate(R.id.authEmailPasswordFragment);
                 break;
+            case R.id.settings_menu_item:
+                navController.navigate(R.id.settingsFragment);
+                break;
         }
         return true;
     }
@@ -116,12 +123,14 @@ public class MainActivity extends AppCompatActivity implements
     private void hideAuth() {
         bottomNavigationView.setVisibility(View.INVISIBLE);
         logoutMenuItem.setVisible(false);
+        settingsMenuItem.setVisible(false);
     }
 
     @Override
     public void showBottomNavigationBar() {
         bottomNavigationView.setVisibility(View.VISIBLE);
         logoutMenuItem.setVisible(true);
+        settingsMenuItem.setVisible(true);
     }
 
     //endregion

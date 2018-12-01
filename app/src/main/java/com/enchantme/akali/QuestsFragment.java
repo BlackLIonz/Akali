@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-public class QuestsFragment extends Fragment {
+public class QuestsFragment extends BaseFirebaseAuthFragment {
 
     //region Variables
 

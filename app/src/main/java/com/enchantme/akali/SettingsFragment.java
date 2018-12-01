@@ -3,13 +3,15 @@ package com.enchantme.akali;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceFragmentCompat;
 
-public class ReaderFragment extends BaseFirebaseAuthFragment {
+
+public class SettingsFragment extends PreferenceFragmentCompat {
 
     //region Variables
 
@@ -19,17 +21,18 @@ public class ReaderFragment extends BaseFirebaseAuthFragment {
 
     //region Constructors
 
-    public ReaderFragment() {
+    public SettingsFragment() {
+
     }
 
     //endregion
 
+
     //region Android Lifecycle
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_reader, container, false);
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        addPreferencesFromResource(R.xml.app_preferences);
     }
 
     @Override

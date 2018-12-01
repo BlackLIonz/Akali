@@ -3,6 +3,7 @@ package com.enchantme.akali;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.enchantme.akali.core.DBConstants;
+import com.enchantme.akali.core.GlideApp;
 import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.model.Image;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -45,7 +47,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class EditProfileFragment extends Fragment {
+public class EditProfileFragment extends BaseFirebaseAuthFragment {
 
     //region Variables
 
@@ -62,6 +64,9 @@ public class EditProfileFragment extends Fragment {
 
     private Image pickedImage;
 
+    private boolean isSaved;
+    private boolean isChanged;
+
     //endregion
 
     //region Android Lifecycle
@@ -69,8 +74,6 @@ public class EditProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        auth = FirebaseAuth.getInstance();
-        navController = Navigation.findNavController(getActivity(), R.id.main_content);
         db = FirebaseDatabase.getInstance().getReference();
         st = FirebaseStorage.getInstance().getReference();
     }
@@ -84,10 +87,6 @@ public class EditProfileFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        if (auth.getCurrentUser() == null) {
-            navController.navigate(R.id.authEmailPasswordFragment);
-        }
 
         FirebaseUser currentUser = auth.getCurrentUser();
 
@@ -133,6 +132,7 @@ public class EditProfileFragment extends Fragment {
             public void onClick(View v) {
                 db.child(DBConstants.USER_NICKNAME).setValue(nickName.getText().toString());
                 db.child(DBConstants.USER_PHONE_NUMBER).setValue(phone.getText().toString());
+                Log.d("Akali", "onClick: clicked");
                 if (pickedImage != null) {
                 try {
                     final InputStream stream = new FileInputStream(new File(pickedImage.getPath()));
@@ -156,25 +156,31 @@ public class EditProfileFragment extends Fragment {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
+                            navController.navigate(R.id.profileFragment);
                         }
                     });
                 } catch (IOException e) {
                     Log.d("Akali", "onActivityResult: " + e.getMessage());
                 }
             }
-                navController.navigate(R.id.profileFragment);
             }
         });
 
 
-        CircleImageView profileImageView = getView().findViewById(R.id.profile_image_edit);
+        final CircleImageView profileImageView = getView().findViewById(R.id.profile_image_edit);
 
-        if (currentUser.getPhotoUrl() != null) {
-            Bitmap btmp = BitmapFactory.decodeFile(currentUser.getPhotoUrl().toString(), null);
-            Glide.with(this).load(btmp).into(profileImageView);
-        } else {
-            Glide.with(this).load(R.drawable.default_profile_pic).into(profileImageView);
-        }
+        st.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                GlideApp.with(getView()).load(st).into(profileImageView);
+                //     GlideApp.with(getView()).load(st).into(profileImageView);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Glide.with(getView()).load(R.drawable.default_profile_pic).into(profileImageView);
+            }
+        });
 
         final ImagePicker imagePicker = ImagePicker.create(this)
                 .single();
