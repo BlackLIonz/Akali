@@ -2,7 +2,7 @@ package com.enchantme.akali;
 
 import android.app.Application;
 
-import com.enchantme.akali.core.rss.RssAdapter;
+import com.enchantme.akali.core.rss.RssApi;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
@@ -11,7 +11,7 @@ public class App extends Application {
 
     //region Variables
 
-    private static RssAdapter rssAdapter;
+    private static RssApi rssApi;
 
     //endregion
 
@@ -25,15 +25,15 @@ public class App extends Application {
                 .baseUrl("http://www.ka-news.de")
                 .addConverterFactory(SimpleXmlConverterFactory.createNonStrict())
                 .build();
-        rssAdapter = retrofit.create(RssAdapter.class);
+        rssApi = retrofit.create(RssApi.class);
     }
 
     //endregion
 
     //region Public Methods
 
-    public static RssAdapter getRssAdapter() {
-        return rssAdapter;
+    public static RssApi getRssApi() {
+        return rssApi;
     }
 
     //endregion
