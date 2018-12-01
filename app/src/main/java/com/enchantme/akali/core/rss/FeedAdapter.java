@@ -44,6 +44,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         FeedItem feedItem = feedItems.get(position);
         holder.feedItemTitle.setText(feedItem.getTitle());
+        holder.feedItemDescription.setText(feedItem.getDescription());
+        holder.feedItemPubDate.setText(feedItem.getPubDate());
     }
 
     @Override
@@ -57,9 +59,13 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         final TextView feedItemTitle;
+        final TextView feedItemDescription;
+        final TextView feedItemPubDate;
         ViewHolder(View view){
             super(view);
             feedItemTitle = view.findViewById(R.id.feed_item_title);
+            feedItemDescription = view.findViewById(R.id.feed_item_description);
+            feedItemPubDate = view.findViewById(R.id.feed_item_pubDate);
         }
     }
 

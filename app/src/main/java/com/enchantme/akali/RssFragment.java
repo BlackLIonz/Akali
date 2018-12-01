@@ -17,14 +17,18 @@ import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class RssFragment extends Fragment {
+public class RssFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     //region Variables
+
+    private SwipeRefreshLayout feedSwipeRefreshLayout;
+    private RecyclerView recyclerView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -42,25 +46,13 @@ public class RssFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        final RecyclerView recyclerView = getView().findViewById(R.id.feed_list);
+        feedSwipeRefreshLayout = getView().findViewById(R.id.refresh_feed_list_layout);
+        feedSwipeRefreshLayout.setOnRefreshListener(this);
+
+        recyclerView = getView().findViewById(R.id.feed_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getView().getContext()));
 
-        String path = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(getResources().getString(R.string.rss_key), null);
-        Log.d("Akali", "onActivityCreated: " + path);
-        Log.d("Akali", "onActivityCreated: " + App.getRssApi().getItems(path).request().url().toString());
-        App.getRssApi().getItems(path).enqueue(new Callback<Feed>() {
-            @Override
-            public void onResponse(Call<Feed> call, Response<Feed> response) {
-                FeedAdapter adapter = new FeedAdapter(getView().getContext(), response.body());
-                recyclerView.setAdapter(adapter);
-                Toast.makeText(getActivity(), response.body().toString(), Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onFailure(Call<Feed> call, Throwable t) {
-                Toast.makeText(getActivity(), "fail", Toast.LENGTH_LONG).show();
-            }
-        });
+        refreshFeed();
     }
 
     @Override
@@ -85,6 +77,33 @@ public class RssFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onRefresh() {
+        refreshFeed();
+    }
+
+    //endregion
+
+    //region Private Methods
+
+    private void refreshFeed() {
+        feedSwipeRefreshLayout.setRefreshing(true);
+        String path = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(getResources().getString(R.string.rss_key), null);
+        App.getRssApi().getItems(path).enqueue(new Callback<Feed>() {
+            @Override
+            public void onResponse(Call<Feed> call, Response<Feed> response) {
+                FeedAdapter adapter = new FeedAdapter(getView().getContext(), response.body());
+                recyclerView.setAdapter(adapter);
+                feedSwipeRefreshLayout.setRefreshing(false);
+            }
+
+            @Override
+            public void onFailure(Call<Feed> call, Throwable t) {
+                Toast.makeText(getActivity(), "fail", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     //endregion
