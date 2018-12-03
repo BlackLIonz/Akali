@@ -14,10 +14,14 @@ import java.io.InputStream;
 @GlideModule
 public final class AkaliGlideModule extends AppGlideModule {
 
+    //region Public Methods
+
     @Override
     public void registerComponents(Context context, Glide glide, Registry registry) {
         registry.append(StorageReference.class, InputStream.class,
                 new FirebaseImageLoader.Factory());
     }
+
+    //endregion
 
 }

@@ -253,7 +253,6 @@ public class ProfileFragment extends BaseFirebaseAuthFragment {
     //region Interfaces
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 

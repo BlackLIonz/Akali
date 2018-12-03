@@ -7,6 +7,8 @@ import java.io.Serializable;
 
 @Root(name = "item", strict = false)
 public class FeedItem implements Serializable {
+    //region Variables
+
     @Element(name = "pubDate")
     private String pubDate;
     @Element(name = "title")
@@ -15,6 +17,10 @@ public class FeedItem implements Serializable {
     private String link;
     @Element(name = "description")
     private String description;
+
+    //endregion
+
+    //region Constructors
 
     public FeedItem() {
     }
@@ -25,6 +31,10 @@ public class FeedItem implements Serializable {
         this.title = title;
         this.pubDate = pubDate;
     }
+
+    //endregion
+
+    //region Public Methods
 
     public String getPubDate() {
         return pubDate;
@@ -57,4 +67,6 @@ public class FeedItem implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    //endregion
 }

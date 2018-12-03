@@ -29,7 +29,6 @@ public class QuestsFragment extends BaseFirebaseAuthFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_quests, container, false);
     }
 
@@ -55,7 +54,6 @@ public class QuestsFragment extends BaseFirebaseAuthFragment {
     //region Interfaces
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 

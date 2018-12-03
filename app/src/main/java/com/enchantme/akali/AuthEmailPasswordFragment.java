@@ -158,7 +158,6 @@ public class AuthEmailPasswordFragment extends Fragment {
     }
 
     private void signIn(String email, String password) {
-        Log.d("Akali", "signIn:" + email);
         if (!validateForm()) {
             return;
         }
@@ -171,12 +170,10 @@ public class AuthEmailPasswordFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d("Akali", "signInWithEmail:success");
                             FirebaseUser user = auth.getCurrentUser();
                             mListener.showBottomNavigationBar();
                             navController.navigate(R.id.profileFragment);
                         } else {
-                            Log.w("Akali", "signInWithEmail:failure", task.getException());
                             Toast.makeText(getActivity(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }

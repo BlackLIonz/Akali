@@ -3,21 +3,31 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <TextView
+        android:drawablePadding="7dp"
         android:id="@+id/feed_item_title"
+        android:drawableStart="@drawable/ic_title_black_24dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"  />
     <TextView
+        android:drawablePadding="7dp"
         android:id="@+id/feed_item_description"
+        android:drawableStart="@drawable/ic_subtitles_black_24dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
+        android:drawablePadding="7dp"
+        android:drawableStart="@drawable/ic_schedule_black_24dp"
         android:id="@+id/feed_item_pubDate"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#c0c0c0"/>
 </LinearLayout>

@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 public final class Utils {
+    //region Public Methods
+
     public static Bitmap mark(Bitmap src, String watermark, boolean underline) {
         int w = src.getWidth();
         int h = src.getHeight();
@@ -23,4 +25,6 @@ public final class Utils {
         canvas.drawText(watermark, 5, 5, paint);
         return result;
     }
+
+    //endregion
 }
