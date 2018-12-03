@@ -1,12 +1,14 @@
 package com.enchantme.akali;
 
 import android.content.Context;
+import android.net.ProxyInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.enchantme.akali.core.rss.Feed;
@@ -30,6 +32,8 @@ public class RssFragment extends Fragment implements SwipeRefreshLayout.OnRefres
     private SwipeRefreshLayout feedSwipeRefreshLayout;
     private RecyclerView recyclerView;
 
+    private WebView feedWebView;
+
     private OnFragmentInteractionListener mListener;
 
     //endregion
@@ -46,6 +50,9 @@ public class RssFragment extends Fragment implements SwipeRefreshLayout.OnRefres
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        feedWebView = getView().findViewById(R.id.feed_web_view);
+        feedWebView.setVisibility(View.INVISIBLE);
+        feedWebView.getSettings().setSupportZoom(true);
         feedSwipeRefreshLayout = getView().findViewById(R.id.refresh_feed_list_layout);
         feedSwipeRefreshLayout.setOnRefreshListener(this);
 
@@ -94,7 +101,7 @@ public class RssFragment extends Fragment implements SwipeRefreshLayout.OnRefres
         App.getRssApi().getItems(path).enqueue(new Callback<Feed>() {
             @Override
             public void onResponse(Call<Feed> call, Response<Feed> response) {
-                FeedAdapter adapter = new FeedAdapter(getView().getContext(), response.body());
+                FeedAdapter adapter = new FeedAdapter(getView().getContext(), response.body(), feedWebView);
                 recyclerView.setAdapter(adapter);
                 feedSwipeRefreshLayout.setRefreshing(false);
             }
