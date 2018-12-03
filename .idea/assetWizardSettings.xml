@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/D:/Soft/AStudio/plugins/android/lib/android.jar!/images/material_design_icons/communication/ic_rss_feed_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/D:/Soft/Android/plugins/android/lib/android.jar!/images/material_design_icons/av/ic_subtitles_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,8 +28,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_rss_feed_white_24dp" />
+                            <entry key="outputName" value="ic_subtitles_black_24dp" />
                             <entry key="sourceFile" value="C:\Users\User" />
                           </map>
                         </option>

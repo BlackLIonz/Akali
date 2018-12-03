@@ -22,7 +22,7 @@ public class App extends Application {
         super.onCreate();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://www.ka-news.de")
+                .baseUrl("https://xkcd.com")
                 .addConverterFactory(SimpleXmlConverterFactory.createNonStrict())
                 .build();
         rssApi = retrofit.create(RssApi.class);

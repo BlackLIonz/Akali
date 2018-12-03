@@ -7,12 +7,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.enchantme.akali.viewmodel.ProfileViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -37,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements
 
     private BottomNavigationView bottomNavigationView;
 
+    private ProfileViewModel profileViewModel;
+
     //endregion
 
     //region Android Lifecycle
@@ -45,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        profileViewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
         auth = FirebaseAuth.getInstance();
         Toolbar mainToolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(mainToolbar);
